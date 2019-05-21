@@ -1,0 +1,9 @@
+Factura Simplificada
+---------------------------------------
+Codigo: 	222
+Nombre: 	Gigabyte
+Descripcion:	Placa base GIGABYTE serie 400 con tecnología AMD StoreMI
+Costo: 		65.0
+
+Total Factura: 65.0 €
+Atendido por: mario
