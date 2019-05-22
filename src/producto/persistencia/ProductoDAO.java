@@ -6,5 +6,10 @@ import producto.dominio.Producto;
 public interface ProductoDAO {
 
     List<Producto> leerproducto();
-     boolean actualizarProducto(List<Producto> productos);
+
+    boolean actualizarPrecio(int codigo, double precio);
+
+    boolean actualizarCodigo(int codigo, int nuevoCodigo);
+
+    boolean actualizarProducto(int codigo, String nombre);
 }

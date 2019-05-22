@@ -67,7 +67,7 @@ public class Empleado_Controlador {
                     String passwd = sc.next();
                     if (!passwd.equalsIgnoreCase(empleado1.getPassword())) {
                         empleado.get(indice).setPassword(passwd);
-                        cambioPasswdOK = new EmpleadoDAOImp().actualizarEmpleado(empleado);
+                        cambioPasswdOK = new EmpleadoDAOImp().actualizarEmpleado(codigo, passwd);
                         if (cambioPasswdOK) {
                             System.out.println("Se cambio la contraseña satisfactoriamente");
 

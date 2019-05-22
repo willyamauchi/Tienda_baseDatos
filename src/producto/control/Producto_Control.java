@@ -31,7 +31,7 @@ public class Producto_Control {
                         for (Producto producto2 : productos) {
                             if (!(codigoNuevo == producto2.getCodigo())) {
                                 productos.get(indice).setCodigo(codigoNuevo);
-                                productoOK = new ProductoDAO_Imp().actualizarProducto(productos);
+                                productoOK = new ProductoDAO_Imp().actualizarCodigo( producto2.getCodigo() ,  codigo );
                                 if (productoOK) {
                                     System.out.println("Se guardo satisfactoriamente el archivo productos.txt ");
                                     archivoOK = false;
@@ -88,7 +88,7 @@ public class Producto_Control {
                     precioModificar = sc.nextDouble();
                     if (!(precioModificar == producto1.getPrecio())) {
                         productos.get(indice).setPrecio(precioModificar);
-                        productoOK = new ProductoDAO_Imp().actualizarProducto(productos);
+                        productoOK = new ProductoDAO_Imp().actualizarPrecio(codigo, precioModificar);
                         if (productoOK) {
                             System.out.println("Se guardo satisfactoriamente el archivo productos.txt ");
                         } else {
@@ -122,7 +122,7 @@ public class Producto_Control {
                     nombreNuevo = sc.next();
                     if (!(nombreNuevo.equalsIgnoreCase(producto1.getNombre()))) {
                         productos.get(indice).setNombre(nombreNuevo);
-                        productoOK = new ProductoDAO_Imp().actualizarProducto(productos);
+                        productoOK = new ProductoDAO_Imp().actualizarProducto(codigo, nombreNuevo);
                         if (productoOK) {
                             System.out.println("Se guardo satisfactoriamente el archivo productos.txt ");
                         } else {
