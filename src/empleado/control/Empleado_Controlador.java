@@ -1,9 +1,10 @@
 package empleado.control;
 
+import Excepciones.CodigoError_Enum;
+import Excepciones.NombreArchivoIncorrectoExeption;
 import empleado.dominio.Empleado;
 import empleado.persistencia.EmpleadoDAOImp;
 import java.util.InputMismatchException;
-import java.util.List;
 import java.util.Scanner;
 
 public class Empleado_Controlador {
@@ -32,57 +33,55 @@ public class Empleado_Controlador {
                 if (empleado != null) {
                     System.out.println("Ingrese su Contraseña:");
                     String pass = sc.next();
-                    if (empleado.getPassword().equals(pass)) {
-                        System.out.println("");
-                        System.out.println("\t---- Bienvenido " + empleado.getNombre() + " ----");
-                        this.empleado = empleado;
-                    } else {
-                        System.out.println("Contraseña incorrecto");
-                    }
+
+                    comprobarpassw(empleado, pass);
+
                 } else {
                     System.out.println("Codigo incorrecto");
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Solo se adminten numeros");
                 sc.next();
+            } catch (NombreArchivoIncorrectoExeption e) {
+                System.out.println(e.getMessage());
             }
 
+        }
+    }
+
+    public void comprobarpassw(Empleado empleado, String pass) {
+        if (empleado.getPassword().equals(pass)) {
+            System.out.println("");
+            System.out.println("\t---- Bienvenido " + empleado.getNombre() + " ----");
+            this.empleado = empleado;
+        } else {
+            throw new NombreArchivoIncorrectoExeption(CodigoError_Enum.ERROR_PASSWORD_ERRADO);
         }
     }
 
     public void cambiarPasswordEmpleado() {
+        
         Scanner sc = new Scanner(System.in);
-        int codigo, indice = 0;
-        String nombreFile = "empleados.txt";
+        int codigo;
+        String nuevoPasswd,passwd;
         boolean cambioPasswdOK;
-        List<Empleado> empleado = new EmpleadoDAOImp().leerEmpleado();
-
-        System.out.println(" ingrese el usuario a modificar su contraseña ");
-        codigo = sc.nextInt();
-
-        if (codigo > 0) {
-            for (Empleado empleado1 : empleado) {
-                if (codigo == empleado1.getCodigo()) {
+        codigo=this.empleado.getCodigo();
+        passwd=this.empleado.getPassword();                    
                     System.out.println("Introdusca la nueva contraseña....");
-                    String passwd = sc.next();
-                    if (!passwd.equalsIgnoreCase(empleado1.getPassword())) {
-                        empleado.get(indice).setPassword(passwd);
-                        cambioPasswdOK = new EmpleadoDAOImp().actualizarEmpleado(codigo, passwd);
+                    nuevoPasswd= sc.next();
+                    if (!passwd.equalsIgnoreCase(nuevoPasswd)) {
+                     
+                        cambioPasswdOK = new EmpleadoDAOImp().actualizarEmpleado(codigo, nuevoPasswd);
                         if (cambioPasswdOK) {
                             System.out.println("Se cambio la contraseña satisfactoriamente");
-
                         } else {
-                            System.out.println("No se ha podiso actualizar el archivo" + nombreFile);
+                            System.out.println("No se ha podido actualizar el archivo" );
                         }
-
                     } else {
                         System.out.println("Contraseña igual que la anterior");
                     }
-                }
-                indice++;
-            }
+                        
+                  }
         }
 
-    }
 
-}

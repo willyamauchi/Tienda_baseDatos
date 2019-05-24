@@ -50,10 +50,10 @@ public class Tienda_Controlador {
                 new Vista_Producto().submenuModificarProducto();
                 break;
             case CAMBIAR_PASSWD:
-                new Empleado_Controlador().cambiarPasswordEmpleado();
+                empleadoLog.cambiarPasswordEmpleado();
                 break;
             case CERRARSECION:
-                new Empleado_Controlador().login();
+                empleadoLog.login();
                 break;
 
         }

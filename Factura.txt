@@ -1,9 +1,14 @@
 Factura Simplificada
 ---------------------------------------
-Codigo: 	222
+Codigo: 	165
 Nombre: 	Gigabyte
-Descripcion:	Placa base GIGABYTE serie 400 con tecnología AMD StoreMI
-Costo: 		65.0
+Descripcion:	BPlaca base GIGABYTE serie 400 con tecnología AMD StoreMI
+Costo: 		65.99
 
-Total Factura: 65.0 €
+Codigo: 	223
+Nombre: 	Kingston A400 SSD 240GB
+Descripcion:	Disco duro A400 de estado sólido de Kingston
+Costo: 		32.95
+
+Total Factura: 98.94 €
 Atendido por: mario

@@ -17,7 +17,7 @@ public class Producto_Control {
     public void modificarCodigoProducto() {
         Scanner sc = new Scanner(System.in);
         int codigo, codigoNuevo, indice = 0;
-        String nombreFile = "productos.txt";
+
         boolean productoOK, archivoOK = true;
         mostarProductos();
         while (archivoOK) {
@@ -30,23 +30,24 @@ public class Producto_Control {
                         codigoNuevo = sc.nextInt();
                         for (Producto producto2 : productos) {
                             if (!(codigoNuevo == producto2.getCodigo())) {
-                                productos.get(indice).setCodigo(codigoNuevo);
-                                productoOK = new ProductoDAO_Imp().actualizarCodigo( producto2.getCodigo() ,  codigo );
+                               productoOK = new ProductoDAO_Imp().actualizarCodigo(producto2.getCodigo(), codigo);
                                 if (productoOK) {
-                                    System.out.println("Se guardo satisfactoriamente el archivo productos.txt ");
+                                    System.out.println("Se guardo satisfactoriamente" );
                                     archivoOK = false;
                                 } else {
-                                    System.out.println("NO se ha guardo archivo productos.txt ");
-
+                                    System.out.println("NO se ha guardo archivo ");
+                                    break;
                                 }
-
                             } else {
                                 System.out.println("El codigo Ingresdo ya esxite!!!");
                                 break;
                             }
                         }
+                    } else {
+                        System.out.println("Codigo no existe en base de datos");
+                        break;
                     }
-                    indice++;
+                   
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Solo se adminten numeros");
@@ -75,32 +76,37 @@ public class Producto_Control {
         Scanner sc = new Scanner(System.in);
         // List<Producto> producto = new Producto().leerProductos();
         int codigo, indice = 0;
-        String nombreFile = "productos.txt";
-        boolean productoOK;
+
+        boolean productoOK, ok = true;
         double precioModificar;
         mostarProductos();
-        System.out.println("Ingrese codigo del producto a modificar");
-        codigo = sc.nextInt();
-        if (codigo > 0) {
-            for (Producto producto1 : productos) {
-                if (codigo == producto1.getCodigo()) {
-                    System.out.println("Ingrese el nuevo precio.... Formato(00,00)...");
-                    precioModificar = sc.nextDouble();
-                    if (!(precioModificar == producto1.getPrecio())) {
-                        productos.get(indice).setPrecio(precioModificar);
-                        productoOK = new ProductoDAO_Imp().actualizarPrecio(codigo, precioModificar);
-                        if (productoOK) {
-                            System.out.println("Se guardo satisfactoriamente el archivo productos.txt ");
-                        } else {
-                            System.out.println("NO se ha guardo archivo productos.txt ");
+        while (ok) {
+            try {
+                System.out.println("Ingrese codigo del producto a modificar");
+                codigo = sc.nextInt();
+                if (codigo > 0) {
+                    for (Producto producto1 : productos) {
+                        if (codigo == producto1.getCodigo()) {
+                            System.out.println("Ingrese el nuevo precio.... Formato(00,00)...");
+                            precioModificar = sc.nextDouble();
+                            if (!(precioModificar == producto1.getPrecio())) {
+                                productos.get(indice).setPrecio(precioModificar);
+                                productoOK = new ProductoDAO_Imp().actualizarPrecio(codigo, precioModificar);
+                                if (productoOK) {
+                                    System.out.println("Se guardo satisfactoriamente el archivo productos.txt ");
+                                } else {
+                                    System.out.println("NO se ha guardo archivo productos.txt ");
 
+                                }
+
+                            }
                         }
-
+                        indice++;
                     }
                 }
-                indice++;
-            }
 
+            } catch (InputMismatchException e) {
+            }
         }
 
     }
@@ -109,12 +115,13 @@ public class Producto_Control {
         Scanner sc = new Scanner(System.in);
         //    List<Producto> producto = new Producto().leerProductos();
         int codigo, indice = 0;
-        String nombreFile = "productos.txt";
+     
         boolean productoOK;
         String nombreNuevo;
         mostarProductos();
         System.out.println("Ingrese codigo del producto a modificar");
         codigo = sc.nextInt();
+        
         if (codigo > 0) {
             for (Producto producto1 : productos) {
                 if (codigo == producto1.getCodigo()) {

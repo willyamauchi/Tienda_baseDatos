@@ -30,7 +30,7 @@ public class ConexionBD {
        Connection conexion=null;
         try{
             conexion = DriverManager.getConnection(URL, USER, PASSWORD);
-            System.out.println("Base de datos conectados");
+         //   System.out.println("Base de datos conectados");
         }catch(SQLException ex){
             System.out.println("No se puede conectar base de datos");
             ex.printStackTrace();

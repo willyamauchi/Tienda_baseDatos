@@ -1,5 +1,7 @@
 package empleado.persistencia;
 
+import Excepciones.CodigoError_Enum;
+import Excepciones.NombreArchivoIncorrectoExeption;
 import conexion.ConexionBD;
 import empleado.dominio.Empleado;
 import java.sql.Connection;
@@ -51,7 +53,7 @@ public class EmpleadoDAOImp implements EmpleadoDAO {
 
     @Override
     public Empleado getEmpleadoporCodigo(int codigo) {
-       Empleado empleado= null;
+       
         Connection conexion = null;
         Statement sentencia = null;
         ResultSet resultado = null;
@@ -66,23 +68,22 @@ public class EmpleadoDAOImp implements EmpleadoDAO {
                 String apellido = resultado.getString("a_apellidos");
                 String password = resultado.getString("e_password");
 
-               
-               empleado = new Empleado(codigo,nombre,apellido,password);
 
             resultado.close();
             sentencia.close();
             conexion.close();
+               
+               return new Empleado(codigo,nombre,apellido,password);
         } catch (Exception e) {
-            System.out.println("Error al leer los productos....");
+            System.out.println("Error al leer los Empleados....");
             System.out.println(e.getMessage());
         }
-        return empleado;
-//To change body of generated methods, choose Tools | Templates.
+        throw new NombreArchivoIncorrectoExeption(CodigoError_Enum.ERROR_USUARIO_NO_ENCONTRADO);
     }
 
 
     public boolean actualizarEmpleado(int codigo, String password) {
-        String query = "UPDATE  empleados SET e_password = " + codigo + " WHERE  = " + password;
+        String query = "UPDATE  empleado SET e_password = " + codigo + " WHERE  = " + password;
         try ( Connection conexion = ConexionBD.conectar();  Statement setencia = conexion.createStatement()) {
             return setencia.executeUpdate(query) == 1;
         } catch (SQLException e) {

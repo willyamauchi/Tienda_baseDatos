@@ -2,6 +2,7 @@ package pedido.control;
 
 import Tienda.control.Tienda_Controlador;
 import empleado.dominio.Empleado;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 import pedido.dominio.Pedido;
@@ -68,25 +69,28 @@ public class Pedido_Control {
         int codigo, cantidadProducto;
         String opcion;
         System.out.println("Ingrese la catidad de producto a añadir: ");
-        cantidadProducto=sc.nextInt();
+        cantidadProducto = sc.nextInt();
         new Producto_Control().mostarProductos();
         int i = 0;
         while (i < cantidadProducto) {
-            System.out.println("Ingrese el codigo de producto a añadir:");
-            codigo = sc.nextInt();
+            try {
+                System.out.println("Ingrese el codigo de producto a añadir:");
+                codigo = sc.nextInt();
 
-            for (Producto producto1 : producto) {
-                if (codigo == producto1.getCodigo()) {
-                    pedido.addProducto(producto1);
-                    System.out.println("Se anadio a la cesta: " + producto1.getNombre());
+                for (Producto producto1 : producto) {
+                    if (codigo == producto1.getCodigo()) {
+                        pedido.addProducto(producto1);
+                         i++;
+                        System.out.println("Se anadio a la cesta: " + producto1.getNombre());
 
-                } else {
-                    //  System.out.println("Producto no existe!!!");
+                    }
                 }
+            } catch (InputMismatchException e) {
+                System.out.println("Error en el dato ingresado ");
             }
-            i++;
+           
         }
-        
+
     }
 
     public void visualizarPrecioTotalCesta() {
